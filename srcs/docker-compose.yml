@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  # nginx:
+  #   container_name: nginx
+  #   image: 42-nginx:stable
+  #   build:
+  #     context: ./services/nginx
+  #   ports:
+  #     - 443:443
+  #   networks:
+  #     - default
+  #   restart: always
+  #   depends_on:
+  #     - wordpress
+  #     - mariadb
+  #
+  # wordpress:
+  #   container_name: wordpress
+  #   image: 42-wordpress:stable
+  #   build:
+  #     context: ./services/wordpress
+  #   restart: on-failure
+  #   networks:
+  #     - default
+  #   depends_on:
+  #     - mariadb
+
+  mariadb:
+    container_name: mariadb
+    image: 42-mariadb:stable
+    restart: on-failure
+    env_file:
+      - ./.env
+    volumes:
+      - db-data:/data/db
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  db-data:
+  static-content:

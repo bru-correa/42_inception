@@ -1,8 +1,0 @@
-version: "3.9"
-
-services:
-  nginx-container:
-    image: nginx:stable
-    ports:
-      - 443:443
-    restart: always

@@ -4,14 +4,14 @@ NGINX-PATH			= ./srcs/requirements/nginx
 WORDPRESS-PATH		= ./srcs/requirements/wordpress
 MARIADB-PATH		= ./srcs/requirements/mariadb
 
-all: build-mariadb
+all: build-mariadb build-wordpress
 	cd ./srcs && docker compose up
 
 build-nginx: $(NGINX-PATH)
-	docker build $< -t nginx:stable
+	docker build $< -t 42-nginx:stable
 
 build-wordpress: $(WORDPRESS-PATH)
-	docker build $< -t wordpress:stable
+	docker build $< -t 42-wordpress:stable
 	
 build-mariadb: $(MARIADB-PATH)
 	docker build $< -t 42-mariadb:stable

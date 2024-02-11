@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.8"
 
 services:
   # nginx:
@@ -15,16 +15,18 @@ services:
   #     - wordpress
   #     - mariadb
   #
-  # wordpress:
-  #   container_name: wordpress
-  #   image: 42-wordpress:stable
-  #   build:
-  #     context: ./services/wordpress
-  #   restart: on-failure
-  #   networks:
-  #     - default
-  #   depends_on:
-  #     - mariadb
+  wordpress:
+    container_name: wordpress
+    image: 42-wordpress:stable
+    restart: on-failure
+    env_file:
+      - ./.env
+    volumes:
+      - static-content:/var/www/html
+    networks:
+      - default
+    depends_on:
+      - mariadb
 
   mariadb:
     container_name: mariadb
@@ -41,6 +43,7 @@ networks:
   default:
     driver: bridge
 
+# TODO: Update the volumes to bind to /home/bcorrea/data
 volumes:
   db-data:
   static-content:

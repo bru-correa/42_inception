@@ -20,5 +20,3 @@ USER mysql
 EXPOSE 3306
 
 ENTRYPOINT [ "/bin/bash", "/tmp/entrypoint.sh" ]
-
-# useradd --user-group --create-home --no-log-init --shell /bin/bash mysql && \

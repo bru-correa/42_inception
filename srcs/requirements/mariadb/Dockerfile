@@ -1,5 +1,7 @@
 FROM debian:bullseye
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && \
   apt-get install -y \
   mariadb-server=1:10.5.23-0+deb11u1 \

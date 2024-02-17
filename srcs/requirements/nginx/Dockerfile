@@ -1,5 +1,7 @@
 FROM debian:bullseye
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update &&\
   apt-get install -y \
   nginx=1.18.0-6.1+deb11u3 \

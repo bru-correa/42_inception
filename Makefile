@@ -1,17 +1,22 @@
-# TODO: Install/Update docker and docker-compose in the Virtual Machine
-
-NGINX-PATH			= ./srcs/requirements/nginx
-WORDPRESS-PATH		= ./srcs/requirements/wordpress
-MARIADB-PATH		= ./srcs/requirements/mariadb
+COMPOSE_PATH = ./srcs/docker-compose.yml
 
 all: build-mariadb build-wordpress build-nginx
-	cd ./srcs && docker compose up
+	@ docker-compose -f ${COMPOSE_PATH} up --build
 
-build-nginx: $(NGINX-PATH)
-	docker build $< -t 42-nginx:stable
+clean:
+	@ docker system prune -a --force
 
-build-wordpress: $(WORDPRESS-PATH)
-	docker build $< -t 42-wordpress:stable
-	
-build-mariadb: $(MARIADB-PATH)
-	docker build $< -t 42-mariadb:stable
+fclean:
+	@ rm -rf /home/bcorrea/data
+
+re: fclean all
+
+down:
+	@ docker-compose -f ${COMPOSE_PATH} down
+
+setup:
+	@ apt-get install -y docker-compose
+	@ mkdir -p /home/bcorrea/data/html
+	@ mkdir -p /home/bcorrea/data/mysql
+	@ grep bcorrea.42.fr /etc/hosts || echo "127.0.0.1 bcorrea.42.fr" >> /etc/hosts
+	@ wget https://github.com/bru-correa/42_inception/tree/main/srcs/.env

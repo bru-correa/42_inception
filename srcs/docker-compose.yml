@@ -3,6 +3,7 @@ version: "3.8"
 services:
   nginx:
     container_name: nginx
+    build: ./requirements/nginx
     image: 42-nginx:stable
     restart: on-failure
     env_file:
@@ -19,6 +20,7 @@ services:
 
   wordpress:
     container_name: wordpress
+    build: ./requirements/wordpress
     image: 42-wordpress:stable
     restart: on-failure
     env_file:
@@ -32,6 +34,7 @@ services:
 
   mariadb:
     container_name: mariadb
+    build: ./requirements/mariadb
     image: 42-mariadb:stable
     restart: on-failure
     env_file:

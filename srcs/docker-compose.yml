@@ -40,7 +40,7 @@ services:
     env_file:
       - ./.env
     volumes:
-      - db-data:/data/db
+      - db-data:/var/lib/mysql
     networks:
       - default
 

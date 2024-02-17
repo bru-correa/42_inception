@@ -1,13 +1,19 @@
-FROM alpine:3.19.0
+FROM debian:bullseye
 
-RUN apk update && apk add nginx=1.24.0-r14 --no-cache
-RUN adduser -D -g 'bcorrea' bcorrea && mkdir -p /home/bcorrea/data \
-	&& chown -R bcorrea:bcorrea /var/lib/nginx && chown -R bcorrea:bcorrea /home/bcorrea
+RUN apt-get update &&\
+  apt-get install -y \
+  nginx=1.18.0-6.1+deb11u3 \
+  openssl=1.1.1w-0+deb11u1 \
+  --no-install-recommends && \
+  rm -rf /var/lib/apt/lists/* && \
+  mkdir -p /etc/nginx/ssl
 
-COPY ./nginx.conf /etc/nginx/nginx.conf
-COPY ./index.html /home/bcorrea/data/index.html
-COPY ./cert.pem /etc/nginx/ssl/cert.pem
-COPY ./key.pem /etc/nginx/ssl/key.pem
+COPY ./conf/nginx.conf /etc/nginx
+
+COPY ./tools/create-cert.sh /tmp
+
+RUN chmod +x /tmp/create-cert.sh && /tmp/create-cert.sh
 
 EXPOSE 443
+
 CMD ["nginx", "-g", "daemon off;"]

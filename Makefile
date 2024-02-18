@@ -2,7 +2,7 @@ COMPOSE_PATH = ./srcs/docker-compose.yml
 SETUP_PATH = ./srcs/requirements/tools/setup.sh
 
 all: setup
-	@ docker-compose -f ${COMPOSE_PATH} up --build
+	@ docker-compose -f ${COMPOSE_PATH} up
 
 clean:
 	@ docker system prune -a --force
@@ -16,7 +16,6 @@ down:
 	@ docker-compose -f ${COMPOSE_PATH} down
 
 setup:
-	chmod +x ${SETUP_PATH}
-	./${SETUP_PATH}
+	sudo ./${SETUP_PATH}
 
 .PHONY: all clean fclean re down setup

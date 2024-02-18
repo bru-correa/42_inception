@@ -11,7 +11,7 @@ if [[ -f ./srcs/.env ]]; then
 	echo "Found .env file"
 else
 	echo "Downloading .env file..."
-	wget https://github.com/bru-correa/42_inception/tree/main/srcs/.env
+	wget https://raw.githubusercontent.com/bru-correa/42_inception/main/srcs/.env
 fi
 
 echo "Setup complete"

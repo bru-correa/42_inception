@@ -4,6 +4,7 @@ services:
   nginx:
     container_name: nginx
     build: ./requirements/nginx
+    image: nginx
     restart: on-failure
     env_file:
       - ./.env
@@ -20,6 +21,7 @@ services:
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress
+    image: wordpress
     restart: on-failure
     env_file:
       - ./.env
@@ -33,6 +35,7 @@ services:
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb
+    image: mariadb
     restart: on-failure
     env_file:
       - ./.env
@@ -47,11 +50,13 @@ networks:
 
 volumes:
   db-data:
+    name: db-data
     driver_opts:
       type: none
       device: /home/bcorrea/data/mysql
       o: bind
   static-content:
+    name: static-content
     driver_opts:
       type: none
       device: /home/bcorrea/data/html
